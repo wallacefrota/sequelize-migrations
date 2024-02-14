@@ -6,6 +6,18 @@ const app = express();
 const PORT = process.env.PORT || 3333;
 
 import routes from "./routes/index.js";
+// import database from "./config/db.js";
+// import { Posts } from "./models/post.js";
+
+// (async () => {
+//   try {
+//     await database.sync({force: true});
+
+//     console.log('terminou')
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })()
 
 app.use("/", routes);
 
