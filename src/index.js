@@ -1,6 +1,6 @@
 import "express-async-errors";
 import { config } from "dotenv-safe";
-config();
+config({allowEmptyValues: true});
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
