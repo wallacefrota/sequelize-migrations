@@ -1,12 +1,13 @@
 import { Posts } from "../models/post.js";
 
 async function addPost(req, res, next) {
-  let id_user = 1; // id from token
+  let id_user = 3; // id from token
   try {
     await Posts.create({
       title: "Post title",
       description:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae, rem? Aliquid omnis recusandae earum deleniti fugiat cum, reprehenderit culpa mollitia nobis animi molestias ducimus, iure tempora pariatur a asperiores. Aspernatur.",
+      slug: 'post-title',
       idUser: id_user,
     });
 
@@ -62,9 +63,16 @@ async function deletePost(req, res, next) {
 }
 
 async function getAllPostByUser(req, res, next) {
-  let id = 1; // from token
+  let id = 3; // from token
   try {
-    const posts = await Posts.findAll({where: {idUser: id}});
+    const posts = await Posts.findAll(
+      {
+        where: {idUser: id},
+        order: [['id', 'DESC']],
+        limit: 10,
+        offset: 0
+      }
+    );
 
     if(posts.length === 0) return res.sendStatus(404);
 
