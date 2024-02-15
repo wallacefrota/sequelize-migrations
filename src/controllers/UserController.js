@@ -6,7 +6,7 @@ async function addUser(req, res, next) {
   try {
     await User.create({
       name: "Wallace",
-      email: "wallace@dominio1.com",
+      email: "wallace@dominio2.com",
       password: "123456", // cripto here
     });
 
@@ -17,11 +17,11 @@ async function addUser(req, res, next) {
 }
 
 async function getUser(req, res, next) {
-  let id = 4; // from param
+  let id = 1; // from param
   try {
     const user = await User.findByPk(id);
 
-    if(!user) throw new Error('Erro ao buscar usuário');
+    if(!user) return res.sendStatus(404);
 
     return res.status(200).json(user);
   } catch (error) {
@@ -56,7 +56,7 @@ async function updateUser(req, res, next) {
 
 async function deleteUser(req, res, next) {
   try {
-    await User.destroy({ where: { id: 6 } });
+    await User.destroy({ where: { id: 1 } });
 
     // or
 
