@@ -17,6 +17,10 @@ const Posts = database.define("posts", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  slug: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  }
 });
 
 Posts.belongsTo(User, {
