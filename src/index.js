@@ -2,22 +2,29 @@ import "express-async-errors";
 import { config } from "dotenv-safe";
 config();
 import express from "express";
+import helmet from "helmet";
+import morgan from "morgan";
+
 const app = express();
 const PORT = process.env.PORT || 3333;
 
 import routes from "./routes/index.js";
-// import database from "./config/db.js";
+import database from "./config/db.js";
+// import { User } from "./models/user.js";
 // import { Posts } from "./models/post.js";
 
 // (async () => {
 //   try {
-//     await database.sync({force: true});
+//     await database.sync({alter: true});
 
 //     console.log('terminou')
 //   } catch (error) {
 //     console.log(error)
 //   }
 // })()
+
+app.use(helmet());
+app.use(morgan("tiny"));
 
 app.use("/", routes);
 
@@ -32,6 +39,8 @@ app.use((error, req, res, next) => {
   return res.sendStatus(500);
 });
 
-app.listen(PORT, () => {
-  console.log(`Application is running in port: ${PORT}`);
+database.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Application is running in port: ${PORT}`);
+  });
 });
